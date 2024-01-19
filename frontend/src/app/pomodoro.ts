@@ -1,4 +1,4 @@
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subscription, interval } from 'rxjs';
 
 export class PomodoroTimer {
   previousState: PomodoroTimerState;
@@ -11,6 +11,9 @@ export class PomodoroTimer {
   private countdownValue: number = 0;
   private countdown: ReplaySubject<number> = new ReplaySubject(1);
   countdown$: Observable<number> = this.countdown.asObservable();
+
+  private timer: Observable<number> = interval(1000);
+  private timerSubscription: Subscription | null = null;
 
   constructor(timerLength: number, breakLength: number) {
     this.timerLength = timerLength;
@@ -26,7 +29,7 @@ export class PomodoroTimer {
   }
 
   reset() {
-    clearInterval(this.timerId);
+    this.timerSubscription?.unsubscribe();
     this.updateCountdown(this.timerLength);
     this.previousState = PomodoroTimerState.IDLE;
     this.state = PomodoroTimerState.IDLE;
@@ -44,7 +47,7 @@ export class PomodoroTimer {
 
   pause() {
     if (this.state != PomodoroTimerState.IDLE) {
-      clearInterval(this.timerId);
+      this.timerSubscription?.unsubscribe();
       this.previousState = this.state;
       this.state = PomodoroTimerState.IDLE;
     } else {
@@ -58,7 +61,7 @@ export class PomodoroTimer {
   }
 
   private startCountdown() {
-    this.timerId = window.setInterval(() => {
+    this.timerSubscription = this.timer.subscribe(() => {
       if (this.countdownValue == 0) {
         if (this.state == PomodoroTimerState.WORKING) {
           this.state = PomodoroTimerState.BREAK;
@@ -70,7 +73,7 @@ export class PomodoroTimer {
       } else {
         this.updateCountdown(this.countdownValue - 1);
       }
-    }, 1000);
+    });
   }
 }
 
