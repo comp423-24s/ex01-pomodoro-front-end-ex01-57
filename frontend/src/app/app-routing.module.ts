@@ -5,6 +5,7 @@ import { GateComponent } from './gate/gate.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { AboutComponent } from './about/about.component';
+import { ProductivityComponent } from './productivity/productivity.component';
 
 const routes: Routes = [
   HomeComponent.Route,
@@ -42,6 +43,11 @@ const routes: Routes = [
     title: 'Experimental',
     loadChildren: () =>
       import('./event/event.module').then((m) => m.EventModule)
+  },
+  {
+    path: 'productivity',
+    title: 'Productivity',
+    component: ProductivityComponent
   }
 ];
 

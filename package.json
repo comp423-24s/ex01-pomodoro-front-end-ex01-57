@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@angular-eslint/schematics": "^17.2.1"
+  }
+}
