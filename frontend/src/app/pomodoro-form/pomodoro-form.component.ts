@@ -13,7 +13,8 @@ export class PomodoroFormComponent {
   workSessionLength: number = 25;
   breakSessionLength: number = 5;
   timerID: number = 1;
-  creation: PomodoroFormService = PomodoroFormService.constructor();
+  creation: PomodoroFormService = new PomodoroFormService();
+  showSuccessMessage: boolean = false;
 
   onSubmit() {
     const pom = this.creation.createPomodoro(
@@ -22,7 +23,7 @@ export class PomodoroFormComponent {
       this.workSessionLength,
       this.breakSessionLength
     );
-
-    return pom;
+    this.showSuccessMessage = true;
+    console.log(this.showSuccessMessage);
   }
 }
