@@ -1,0 +1,43 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      [(ngModel)]="pomodoroName"
+      required />
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      name="description"
+      [(ngModel)]="pomodoroDescription"
+      required />
+  </div>
+  <div class="form-group">
+    <label for="workSessionLength">Work Session Length (minutes):</label>
+    <input
+      type="number"
+      class="form-control"
+      id="workSessionLength"
+      name="workSessionLength"
+      [(ngModel)]="workSessionLength"
+      required />
+  </div>
+  <div class="form-group">
+    <label for="breakSessionLength">Break Session Length (minutes):</label>
+    <input
+      type="number"
+      class="form-control"
+      id="breakSessionLength"
+      name="breakSessionLength"
+      [(ngModel)]="breakSessionLength"
+      required />
+  </div>
+  <button type="submit" class="btn btn-primary">Create Pomodoro</button>
+</form>
