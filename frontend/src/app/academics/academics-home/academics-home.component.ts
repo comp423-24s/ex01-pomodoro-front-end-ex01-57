@@ -8,9 +8,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { NagivationAdminGearService } from 'src/app/navigation/navigation-admin-gear.service';
-import { PermissionService } from 'src/app/permission.service';
 
 @Component({
   selector: 'app-academics-home',
