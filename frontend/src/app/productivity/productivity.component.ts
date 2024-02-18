@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PomodoroTimer } from '../pomodoro';
+import { PomodoroFormService } from '../pomodoro-form/pomodoro-form.service';
+import { TimerComponent } from './timer/timer.component';
 
 @Component({
   selector: 'app-productivity',
@@ -7,11 +9,11 @@ import { PomodoroTimer } from '../pomodoro';
   styleUrls: ['./productivity.component.css']
 })
 export class ProductivityComponent implements OnInit {
-  timers: PomodoroTimer[] = []; // Populate this with timers
+  timers: TimerComponent[] = [];
 
-  constructor() {}
+  constructor(private pomodoroFormService: PomodoroFormService) {}
 
-  ngOnInit() {
-    // Initialize timers here or fetch them from a service
+  ngOnInit(): void {
+    this.timers = this.pomodoroFormService.getTimers();
   }
 }

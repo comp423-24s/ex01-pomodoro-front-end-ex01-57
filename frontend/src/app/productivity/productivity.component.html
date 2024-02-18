@@ -1,5 +1,13 @@
 <mat-card-content>
   <button routerLink="/productivity/edit/default">
-    Edit Pomodoro
+    Create Pomodoro
   </button></mat-card-content
 >
+<div *ngFor="let timer of timers">
+  <div>
+    <h3>{{ timer.name }}</h3>
+    <p>Description: {{ timer.description }}</p>
+    <p>Work Session Length: {{ timer.timer.timerLength }}</p>
+    <p>Break Session Length: {{ timer.timer.breakLength }}</p>
+  </div>
+</div>
