@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PomodoroTimer } from '../pomodoro';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { PomodoroFormService } from './pomodoro-form.service';
 
 @Component({
@@ -8,22 +10,37 @@ import { PomodoroFormService } from './pomodoro-form.service';
   styleUrls: ['./pomodoro-form.component.css']
 })
 export class PomodoroFormComponent {
-  pomodoroName: string = '';
-  pomodoroDescription: string = '';
-  workSessionLength: number = 25;
-  breakSessionLength: number = 5;
-  timerID: number = 1;
-  creation: PomodoroFormService = new PomodoroFormService();
-  showSuccessMessage: boolean = false;
+  pomodoroForm: FormGroup;
+  timerCreated: boolean = false;
+  showError: boolean = false;
+
+  constructor(
+    private creation: PomodoroFormService,
+    private formBuilder: FormBuilder
+  ) {
+    this.pomodoroForm = this.formBuilder.group({
+      pomodoroName: ['', Validators.required],
+      pomodoroDescription: ['', Validators.required],
+      workSessionLength: [25, [Validators.required, Validators.min(1)]],
+      breakSessionLength: [5, [Validators.required, Validators.min(1)]]
+    });
+  }
 
   onSubmit() {
-    const pom = this.creation.createPomodoro(
-      this.pomodoroName,
-      this.pomodoroDescription,
-      this.workSessionLength,
-      this.breakSessionLength
-    );
-    this.showSuccessMessage = true;
-    console.log(this.showSuccessMessage);
+    // Extract form values
+    const formValues = this.pomodoroForm.value;
+
+    // Check if the form is valid
+    if (this.pomodoroForm.valid) {
+      const pom = this.creation.createTimer(
+        formValues.pomodoroName,
+        formValues.pomodoroDescription,
+        formValues.workSessionLength,
+        formValues.breakSessionLength
+      );
+      console.log('Success! Pomodoro created:', pom);
+    } else {
+      console.log('Error! Form is not valid.');
+    }
   }
 }
