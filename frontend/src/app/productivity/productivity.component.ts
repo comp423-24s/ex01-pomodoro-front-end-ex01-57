@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PomodoroTimer } from '../pomodoro';
 import { PomodoroFormService } from '../pomodoro-form/pomodoro-form.service';
-import { TimerComponent } from './timer/timer.component';
+import { TimerComponent } from './timer/timer.widget';
 
 @Component({
   selector: 'app-productivity',

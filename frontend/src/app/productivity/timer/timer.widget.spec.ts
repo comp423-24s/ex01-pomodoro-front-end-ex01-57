@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimerComponent } from './timer.component';
+import { TimerComponent } from './timer.widget';
 
 describe('TimerComponent', () => {
   let component: TimerComponent;

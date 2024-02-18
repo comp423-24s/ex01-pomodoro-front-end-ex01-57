@@ -1,13 +1,15 @@
 <mat-card-content>
-  <button routerLink="/productivity/edit/default">
-    Create Pomodoro
-  </button></mat-card-content
->
-<div *ngFor="let timer of timers">
-  <div>
-    <h3>{{ timer.name }}</h3>
-    <p>Description: {{ timer.description }}</p>
-    <p>Work Session Length: {{ timer.timer.timerLength }}</p>
-    <p>Break Session Length: {{ timer.timer.breakLength }}</p>
+  <button routerLink="/productivity/edit/default">Create Pomodoro</button>
+  <div *ngFor="let timer of timers">
+    <div>
+      <h3>{{ timer.name }}</h3>
+      <p>Description: {{ timer.description }}</p>
+      <p>
+        Time Remaining:
+        {{ timer.formatCountdown(timer.timer.countdown$ | async) }}
+      </p>
+      <button (click)="timer.startOrResume()">Start/Resume</button>
+      <button (click)="timer.pause()">Pause</button>
+    </div>
   </div>
-</div>
+</mat-card-content>

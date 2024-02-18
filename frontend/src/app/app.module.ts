@@ -9,7 +9,7 @@ import { HttpRequestInterceptor } from './navigation/http-request.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 
 /* UI / Material Dependencies */
-import { DatePipe, NgForOf } from '@angular/common';
+import { DatePipe, NgForOf, CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -40,6 +40,7 @@ import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.
 import { EventFilterPipe } from './event/event-filter/event-filter.pipe';
 import { ProductivityComponent } from './productivity/productivity.component';
 import { PomodoroFormComponent } from './pomodoro-form/pomodoro-form.component';
+import { TimerComponent } from './productivity/timer/timer.widget';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PomodoroFormComponent } from './pomodoro-form/pomodoro-form.component';
     GateComponent,
     ProfileEditorComponent,
     ProductivityComponent,
-    PomodoroFormComponent
+    PomodoroFormComponent,
+    TimerComponent
   ],
   imports: [
     /* Angular */
@@ -77,6 +79,7 @@ import { PomodoroFormComponent } from './pomodoro-form/pomodoro-form.component';
     MatSnackBarModule,
     MatTabsModule,
     MatToolbarModule,
+    CommonModule,
     FormsModule,
     RouterModule,
     JwtModule.forRoot({

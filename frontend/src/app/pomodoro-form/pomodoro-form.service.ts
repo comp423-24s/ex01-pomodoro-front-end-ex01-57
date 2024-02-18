@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PomodoroTimer } from '../pomodoro';
-import { TimerComponent } from '../productivity/timer/timer.component';
+import { TimerComponent } from '../productivity/timer/timer.widget';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,10 @@ export class PomodoroFormService {
     timer.id = this.nextId++;
     timer.name = name;
     timer.description = description;
-    timer.timer = new PomodoroTimer(workSessionLength, breakSessionLength);
+    timer.timer = new PomodoroTimer(
+      workSessionLength * 60,
+      breakSessionLength * 60
+    );
     this.timers.push(timer);
     return timer;
   }
