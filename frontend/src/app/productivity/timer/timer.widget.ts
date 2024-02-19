@@ -34,6 +34,12 @@ export class TimerComponent {
     if (countdownValue === null) {
       return '00:00';
     }
+    if (countdownValue == 0) {
+      const alarmAudio = document.getElementById(
+        'alarmAudio'
+      ) as HTMLAudioElement;
+      alarmAudio.play();
+    }
     const minutes = Math.floor(countdownValue / 60);
     const seconds = countdownValue % 60;
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
