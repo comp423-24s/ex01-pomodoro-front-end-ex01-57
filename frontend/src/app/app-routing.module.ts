@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { AboutComponent } from './about/about.component';
 import { ProductivityComponent } from './productivity/productivity.component';
+import { PomodoroFormComponent } from './pomodoro-form/pomodoro-form.component';
 
 const routes: Routes = [
   HomeComponent.Route,
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'productivity',
     component: ProductivityComponent
+  },
+  {
+    path: 'productivity/edit/default',
+    component: PomodoroFormComponent
   }
 ];
 
