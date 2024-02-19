@@ -50,7 +50,7 @@ const routes: Routes = [
     component: ProductivityComponent
   },
   {
-    path: 'productivity/edit/default',
+    path: 'productivity/edit/:id',
     component: PomodoroFormComponent
   }
 ];

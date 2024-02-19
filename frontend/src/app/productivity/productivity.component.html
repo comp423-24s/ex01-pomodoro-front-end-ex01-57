@@ -1,4 +1,4 @@
-<button class="create-button" routerLink="/productivity/edit/default">
+<button class="create-button" (click)="onCreatePomodoroClicked()">
   Create Pomodoro
 </button>
 <div *ngFor="let timer of timers">
@@ -17,6 +17,12 @@
           Start/Resume
         </button>
         <button class="pause-button" (click)="timer.pause()">Pause</button>
+        <button
+          class="edit-button"
+          (click)="edit(timer.id)"
+          routerLink="/productivity/edit/{{ timer.id }}">
+          Edit
+        </button>
       </mat-card-actions>
     </div>
   </mat-card>
