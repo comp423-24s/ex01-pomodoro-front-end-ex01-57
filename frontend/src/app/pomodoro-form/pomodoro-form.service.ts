@@ -6,40 +6,72 @@ import { TimerComponent } from '../productivity/timer/timer.widget';
   providedIn: 'root'
 })
 export class PomodoroFormService {
-  private pomodoros: PomodoroTimer[] = [];
-  private pomodoroNames: string[] = [];
-  private pomodoroDecs: string[] = [];
-  private pomodoroids: number[] = [];
+  private timers: TimerComponent[] = [];
   private nextId: number = 1;
-  constructor() {}
+  private editStatus: boolean = false;
+  private ID: number = 0;
 
-  createPomodoro(
+  createTimer(
     name: string,
     description: string,
     workSessionLength: number,
     breakSessionLength: number
-  ): PomodoroTimer | null {
-    if (
-      !name ||
-      !description ||
-      workSessionLength <= 0 ||
-      breakSessionLength <= 0
-    ) {
-      console.error('Invalid input values');
-      return null;
-    }
-
-    // Create new Pomodoro
-    const newPomodoro = new PomodoroTimer(
-      workSessionLength,
-      breakSessionLength
+  ): TimerComponent {
+    const timer = new TimerComponent();
+    timer.id = this.nextId++;
+    timer.name = name;
+    timer.description = description;
+    timer.timer = new PomodoroTimer(
+      workSessionLength * 60,
+      breakSessionLength * 60
     );
-    this.pomodoros.push(newPomodoro);
-    this.pomodoroNames.push(name);
-    this.pomodoroDecs.push(description);
-    this.pomodoroids.push(this.nextId);
-    this.nextId += 1;
+    this.timers.push(timer);
+    return timer;
+  }
 
-    return newPomodoro;
+  getTimers(): TimerComponent[] {
+    return this.timers;
+  }
+
+  getNextID(): number {
+    return this.nextId;
+  }
+
+  edit(id: number): void {
+    this.editStatus = true;
+    this.ID = id;
+  }
+
+  getEditStatus(): boolean {
+    return this.editStatus;
+  }
+
+  editTimer(
+    name: string,
+    description: string,
+    workTime: number,
+    breakTime: number
+  ): void {
+    for (let timer of this.timers) {
+      let i: number = 0;
+      if (timer.id == this.ID) {
+        this.timers[i].name = name;
+        this.timers[i].description = description;
+        this.timers[i].timer = new PomodoroTimer(workTime * 60, breakTime * 60);
+        break;
+      }
+      i++;
+    }
+  }
+
+  delete(id: number): void {
+    for (let timer of this.timers) {
+      let i: number = 0;
+      if (timer.id == id) {
+        this.timers.splice(i, 1);
+        break;
+      }
+      i++;
+    }
   }
 }
