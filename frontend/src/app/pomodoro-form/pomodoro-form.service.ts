@@ -41,7 +41,7 @@ export class PomodoroFormService {
 
   edit(id: number): void {
     this.editStatus = true;
-    this.ID = id - 1;
+    this.ID = id;
   }
 
   getEditStatus(): boolean {
@@ -54,10 +54,26 @@ export class PomodoroFormService {
     workTime: number,
     breakTime: number
   ): void {
-    this.timers[this.ID].name = name;
-    this.timers[this.ID].description = description;
-    this.timers[this.ID].timer.breakLength = breakTime;
-    this.timers[this.ID].timer.timerLength = workTime;
-    this.timers[this.ID].timer.reset();
+    for (let timer of this.timers) {
+      let i: number = 0;
+      if (timer.id == this.ID) {
+        this.timers[i].name = name;
+        this.timers[i].description = description;
+        this.timers[i].timer = new PomodoroTimer(workTime * 60, breakTime * 60);
+        break;
+      }
+      i++;
+    }
+  }
+
+  delete(id: number): void {
+    for (let timer of this.timers) {
+      let i: number = 0;
+      if (timer.id == id) {
+        this.timers.splice(i, 1);
+        break;
+      }
+      i++;
+    }
   }
 }

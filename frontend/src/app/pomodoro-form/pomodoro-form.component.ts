@@ -15,6 +15,7 @@ export class PomodoroFormComponent {
   pomodoroForm: FormGroup;
   timerCreated: boolean = false;
   showError: boolean = false;
+  timerEdited: boolean = false;
 
   constructor(
     private creation: PomodoroFormService,
@@ -49,6 +50,9 @@ export class PomodoroFormComponent {
           formValues.workSessionLength,
           formValues.breakSessionLength
         );
+        this.timerCreated = false;
+        this.showError = false;
+        this.timerEdited = true;
         console.log('Success! Pomodoro updated:', this.timerDetails);
       } else {
         const pom = this.creation.createTimer(
@@ -58,10 +62,14 @@ export class PomodoroFormComponent {
           formValues.breakSessionLength
         );
         this.timerCreated = true;
+        this.showError = false;
+        this.timerEdited = false;
         console.log('Success! Pomodoro created:', pom);
       }
     } else {
       this.showError = true;
+      this.timerCreated = false;
+      this.timerEdited = false;
       console.log('Error! Form is not valid.');
     }
   }

@@ -28,6 +28,10 @@
     margin: 8px;
 }
 
+.delete-button {
+    margin: 8px;
+}
+
 .name {
     font-size: 20px;
 }

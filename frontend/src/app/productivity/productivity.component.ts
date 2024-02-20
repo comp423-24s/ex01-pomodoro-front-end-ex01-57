@@ -29,4 +29,8 @@ export class ProductivityComponent implements OnInit {
   edit(id: number): void {
     this.pomodoroFormService.edit(id);
   }
+
+  delete(id: number): void {
+    this.pomodoroFormService.delete(id);
+  }
 }
