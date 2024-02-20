@@ -1,0 +1,29 @@
+.create-button {
+    background-color: #555555;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 14px 40px;
+    transition-duration: 0.4s;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 8px;
+}
+
+.create-button:hover {
+    background-color: white;
+    color: #555555;
+}
+
+.start-button {
+    margin: 8px;
+}
+
+.pause-button {
+    margin: 8px;
+}
+
+.name {
+    font-size: 20px;
+}

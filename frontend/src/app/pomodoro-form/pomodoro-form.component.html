@@ -5,6 +5,7 @@
       type="text"
       class="form-control"
       id="name"
+      formControlName="pomodoroName"
       name="name"
       [(ngModel)]="pomodoroName"
       required />
@@ -16,6 +17,7 @@
       class="form-control"
       id="description"
       name="description"
+      formControlName="pomodoroDescription"
       [(ngModel)]="pomodoroDescription"
       required />
   </div>
@@ -25,6 +27,8 @@
       type="number"
       class="form-control"
       id="workSessionLength"
+      formControlName="workSessionLength"
+      [value]="25"
       name="workSessionLength"
       [(ngModel)]="workSessionLength"
       required />

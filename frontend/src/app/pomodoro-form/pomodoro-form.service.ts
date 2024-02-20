@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PomodoroTimer } from '../pomodoro';
+import { TimerComponent } from '../productivity/timer/timer.widget';
 
 @Injectable({
   providedIn: 'root'
