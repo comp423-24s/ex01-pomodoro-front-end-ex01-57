@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './productivity.component.html',
   styleUrls: ['./productivity.component.css']
 })
+
 export class ProductivityComponent implements OnInit {
   timers: TimerComponent[] = [];
 
