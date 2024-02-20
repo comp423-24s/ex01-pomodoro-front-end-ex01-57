@@ -10,7 +10,6 @@ describe('ProductivityComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ProductivityComponent]
     }).compileComponents();
-
     fixture = TestBed.createComponent(ProductivityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

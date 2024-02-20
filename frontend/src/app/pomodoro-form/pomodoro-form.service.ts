@@ -6,28 +6,40 @@ import { TimerComponent } from '../productivity/timer/timer.widget';
   providedIn: 'root'
 })
 export class PomodoroFormService {
-  private timers: TimerComponent[] = [];
+  private pomodoros: PomodoroTimer[] = [];
+  private pomodoroNames: string[] = [];
+  private pomodoroDecs: string[] = [];
+  private pomodoroids: number[] = [];
   private nextId: number = 1;
+  constructor() {}
 
-  createTimer(
+  createPomodoro(
     name: string,
     description: string,
     workSessionLength: number,
     breakSessionLength: number
-  ): TimerComponent {
-    const timer = new TimerComponent();
-    timer.id = this.nextId++;
-    timer.name = name;
-    timer.description = description;
-    timer.timer = new PomodoroTimer(
-      workSessionLength * 60,
-      breakSessionLength * 60
-    );
-    this.timers.push(timer);
-    return timer;
-  }
+  ): PomodoroTimer | null {
+    if (
+      !name ||
+      !description ||
+      workSessionLength <= 0 ||
+      breakSessionLength <= 0
+    ) {
+      console.error('Invalid input values');
+      return null;
+    }
 
-  getTimers(): TimerComponent[] {
-    return this.timers;
+    // Create new Pomodoro
+    const newPomodoro = new PomodoroTimer(
+      workSessionLength,
+      breakSessionLength
+    );
+    this.pomodoros.push(newPomodoro);
+    this.pomodoroNames.push(name);
+    this.pomodoroDecs.push(description);
+    this.pomodoroids.push(this.nextId);
+    this.nextId += 1;
+
+    return newPomodoro;
   }
 }
