@@ -76,6 +76,12 @@ class ProductivityService:
         Raises:
             HTTPException: Timer does not exist.
         """
+        global _timers
+        if timer.id not in _timers:
+            raise HTTPException(status_code=404, detail=f"Timer does not exist.")
+        _timers[timer.id] = timer
+        return timer
+
         # TODO: Implement this service function. To do this successfully, you must:
         # - Update the correct timer in the backend.
         # - Throw the correct exception if the user tries to edit a timer that does not exist.
