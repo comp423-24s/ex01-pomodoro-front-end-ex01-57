@@ -79,7 +79,10 @@ class ProductivityService:
         global _timers
         if timer.id not in _timers:
             raise HTTPException(status_code=404, detail=f"Timer does not exist.")
-        _timers[timer.id] = timer
+        _timers[timer.id].name = timer.name
+        _timers[timer.id].description = timer.description
+        _timers[timer.id].break_length = timer.break_length
+        _timers[timer.id].work_length = timer.work_length
         return timer
 
         # TODO: Implement this service function. To do this successfully, you must:
