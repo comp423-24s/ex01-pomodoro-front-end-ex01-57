@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PomodoroTimer } from '../pomodoro';
+import { PomodoroTimer } from '../../pomodoro';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { PomodoroFormService } from './pomodoro-form.service';
-import { TimerComponent } from '../productivity/timer/timer.widget';
+import { TimerComponent } from '../timer/timer.widget';
+import { ProductivityService } from '../productivity.service';
 
 @Component({
   selector: 'app-pomodoro-form',
@@ -18,7 +19,7 @@ export class PomodoroFormComponent {
   timerEdited: boolean = false;
 
   constructor(
-    private creation: PomodoroFormService,
+    private creation: ProductivityService,
     private formBuilder: FormBuilder
   ) {
     this.pomodoroForm = this.formBuilder.group({
