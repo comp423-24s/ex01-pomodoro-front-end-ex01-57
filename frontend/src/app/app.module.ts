@@ -39,7 +39,7 @@ import { GateComponent } from './gate/gate.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { EventFilterPipe } from './event/event-filter/event-filter.pipe';
 import { ProductivityComponent } from './productivity/productivity.component';
-import { PomodoroFormComponent } from './pomodoro-form/pomodoro-form.component';
+import { PomodoroFormComponent } from './productivity/pomodoro-form/pomodoro-form.component';
 import { TimerComponent } from './productivity/timer/timer.widget';
 
 @NgModule({

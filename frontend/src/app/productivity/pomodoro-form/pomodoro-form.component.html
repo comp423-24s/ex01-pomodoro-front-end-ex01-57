@@ -1,0 +1,51 @@
+<form [formGroup]="pomodoroForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      formControlName="pomodoroName"
+      required />
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      name="description"
+      formControlName="pomodoroDescription"
+      required />
+  </div>
+  <div class="form-group">
+    <label for="workSessionLength">Work Session Length (minutes):</label>
+    <input
+      type="number"
+      class="form-control"
+      id="workSessionLength"
+      formControlName="workSessionLength"
+      [value]="25"
+      required />
+  </div>
+  <div class="form-group">
+    <label for="breakSessionLength">Break Session Length (minutes):</label>
+    <input
+      type="number"
+      class="form-control"
+      id="breakSessionLength"
+      formControlName="breakSessionLength"
+      [value]="5"
+      required />
+  </div>
+  <button type="submit" class="btn btn-primary">Create Pomodoro</button>
+  <div *ngIf="showError" class="error-message">
+    Please ensure all fields are correct.
+  </div>
+  <div *ngIf="timerCreated" class="alert alert-success" role="alert">
+    Pomodoro timer created successfully!
+  </div>
+  <div *ngIf="timerEdited" class="error-message">
+    Timer edited successfully!
+  </div>
+</form>
