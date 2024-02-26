@@ -33,7 +33,7 @@ class ProductivityService:
             list[PomodoroTimer]: All pomodoro timer data.
         """
         global _timers
-        return _timers.values()
+        return list(_timers.values())
 
     def get_timer(self, timer_id: int) -> PomodoroTimer:
         """Gets one timer by an ID.
@@ -80,6 +80,20 @@ class ProductivityService:
         # - Update the correct timer in the backend.
         # - Throw the correct exception if the user tries to edit a timer that does not exist.
         # - Return the updated timer.
+
+        global _timers
+
+        if timer.id not in _timers:
+            raise HTTPException(
+                status_code=404, detail=f"Invalid ID {timer.id}: Timer does not exist."
+            )
+
+        _timers[timer.id].name = timer.name
+        _timers[timer.id].description = timer.description
+        _timers[timer.id].timer_length = timer.timer_length
+        _timers[timer.id].break_length = timer.break_length
+
+        return _timers[timer.id]
 
     def delete_timer(self, timer_id: int) -> None:
         """Deletes one timer from the data store.
