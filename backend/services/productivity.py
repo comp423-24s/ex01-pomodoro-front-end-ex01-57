@@ -87,7 +87,6 @@ class ProductivityService:
             raise HTTPException(
                 status_code=404, detail=f"Invalid ID {timer.id}: Timer does not exist."
             )
-
         _timers[timer.id].name = timer.name
         _timers[timer.id].description = timer.description
         _timers[timer.id].timer_length = timer.timer_length
