@@ -47,13 +47,16 @@ export class ProductivityService {
     //    pass the resulting list through the `mapTimerResponseListToDataList` function.
     // - Finally, update the internal timers$ observable by calling `this.timers.next(...)`.
     // - Return the result.
-    return this.http.get<TimerResponse[]>('${this.api/productivity/}').pipe(
-      this.mapTimerResponseListToDataList,
-      map((timerDataList: TimerData[]) => {
-        this.timers.next(timerDataList);
-        return timerDataList;
-      })
-    );
+    return this.http
+      .get<TimerResponse[]>('${this.api/productivity/}')
+      .pipe(
+        this.mapTimerResponseListToDataList,
+        map((timerDataList: TimerData[]) => {
+          this.timers.next(timerDataList);
+          return timerDataList;
+        })
+      )
+      .subscribe();
   }
 
   /** Returns a single timer from the API as an observable.  */
