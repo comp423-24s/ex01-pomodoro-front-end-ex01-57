@@ -18,6 +18,7 @@ openapi_tags = {
     "description": "Create, update, delete, and retrieve Pomodoro timers.",
 }
 
+
 # Creates a Pomodoro Class from BaseModel
 class PomodoroBase(BaseModel):
     id: int
@@ -99,3 +100,12 @@ async def updatetimer(
 # DELETE /api/productivity/{id}
 # Deletes a pomodoro timer.
 # Expected return type: PomodoroTimer
+@api.delete("/api/productivity/{id}")
+async def deletetimer(
+    id: int,
+    pomodoro_base: PomodoroBase,
+    productivity_service: ProductivityService = Depends(),
+) -> PomodoroTimer:
+    deleted = productivity_service.get_timer(id)
+    productivity_service.delete_timer(id)
+    return deleted
