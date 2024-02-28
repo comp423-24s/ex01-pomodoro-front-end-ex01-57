@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductivityService } from '../productivity.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TimerResponse } from '../timerdata';
 
 @Component({
   selector: 'app-timer-editor',
