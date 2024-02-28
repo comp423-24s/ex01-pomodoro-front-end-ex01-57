@@ -18,6 +18,7 @@ openapi_tags = {
     "description": "Create, update, delete, and retrieve Pomodoro timers.",
 }
 
+
 # Creates a Pomodoro Class from BaseModel
 class PomodoroBase(BaseModel):
     id: int

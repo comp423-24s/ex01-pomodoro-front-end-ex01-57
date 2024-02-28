@@ -47,6 +47,16 @@ export class ProductivityService {
     //    pass the resulting list through the `mapTimerResponseListToDataList` function.
     // - Finally, update the internal timers$ observable by calling `this.timers.next(...)`.
     // - Return the result.
+    return this.http
+      .get<TimerResponse[]>('${this.api/productivity/}')
+      .pipe(
+        this.mapTimerResponseListToDataList,
+        map((timerDataList: TimerData[]) => {
+          this.timers.next(timerDataList);
+          return timerDataList;
+        })
+      )
+      .subscribe();
   }
 
   /** Returns a single timer from the API as an observable.  */
@@ -56,10 +66,9 @@ export class ProductivityService {
     // - Then, convert the data from TimerResponse object to a TimerData object. using RxJS operators,
     //    pass the resulting list through the `mapTimerResponseToData` function.
     // - Return the result.
-
-    // Delete the line below once you complete your solution -
-    // This is a placeholder to prevent Angular from failing to build.
-    return new Observable();
+    return this.http
+      .get<TimerResponse>('${this.api/productivity/${id}}')
+      .pipe(this.mapTimerResponseToData);
   }
 
   /** Creates a new timer and returns the created timer from the API as an observable. */
@@ -69,10 +78,9 @@ export class ProductivityService {
     // - Then, convert the data from TimerResponse object to a TimerData object. using RxJS operators,
     //    pass the resulting list through the `mapTimerResponseToData` function.
     // - Return the result.
-
-    // Delete the line below once you complete your solution -
-    // This is a placeholder to prevent Angular from failing to build.
-    return new Observable();
+    return this.http
+      .post<TimerResponse>('${this.api/productivity/', request)
+      .pipe(this.mapTimerResponseToData);
   }
 
   /** Edits a timer and returns the edited timer from the API as an observable. */
@@ -85,7 +93,9 @@ export class ProductivityService {
 
     // Delete the line below once you complete your solution -
     // This is a placeholder to prevent Angular from failing to build.
-    return new Observable();
+    return this.http
+      .put<TimerResponse>('${this.api/productivity/', request)
+      .pipe(this.mapTimerResponseToData);
   }
 
   /** Deletes a timer and returns the delete action as an observable. */
@@ -93,10 +103,9 @@ export class ProductivityService {
     // TODO:
     // - Delete one TimerResponse object by calling the DELETE /api/productivity/ API
     // - Return the result.
-
     // Delete the line below once you complete your solution -
     // This is a placeholder to prevent Angular from failing to build.
-    return new Observable();
+    return this.http.delete('${this.api/productivity/${id}}');
   }
 
   /********* PROVIDED FUNCTIONS: Do not modify. *********/
