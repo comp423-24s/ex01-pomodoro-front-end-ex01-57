@@ -103,6 +103,19 @@ class ProductivityService:
 
         return _timers[timer.id]
 
+        global _timers
+
+        if timer.id not in _timers:
+            raise HTTPException(
+                status_code=404, detail=f"Invalid ID {timer.id}: Timer does not exist."
+            )
+        _timers[timer.id].name = timer.name
+        _timers[timer.id].description = timer.description
+        _timers[timer.id].timer_length = timer.timer_length
+        _timers[timer.id].break_length = timer.break_length
+
+        return _timers[timer.id]
+
     def delete_timer(self, timer_id: int) -> None:
         """Deletes one timer from the data store.
 
