@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductivityService } from '../productivity.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TimerResponse } from '../timerdata';
 
 @Component({
   selector: 'app-timer-editor',
@@ -76,8 +77,26 @@ export class TimerEditorComponent {
       // If the timer is new, create it.
       if (this.isNew) {
         // TODO: Create a timer.
+        let newTimer: TimerResponse = {
+          id: null,
+          name: String(this.timerForm.value.name),
+          description: String(this.timerForm.value.description),
+          timer_length: Number(this.timerForm.value.timerLength),
+          break_length: Number(this.timerForm.value.breakLength)
+        };
+        let CreatedTimer = this.productivityService.createTimer(newTimer);
+        CreatedTimer.subscribe();
       } else {
         // TODO: Edit the existing timer.
+        let newTimer: TimerResponse = {
+          id: Number(this.id),
+          name: String(this.timerForm.value.name),
+          description: String(this.timerForm.value.description),
+          timer_length: Number(this.timerForm.value.timerLength),
+          break_length: Number(this.timerForm.value.breakLength)
+        };
+        let CreatedTimer = this.productivityService.editTimer(newTimer);
+        CreatedTimer.subscribe();
       }
     } else {
       this.snackBar.open('Please enter values in the form correctly.', '', {

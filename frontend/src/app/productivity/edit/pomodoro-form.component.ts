@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PomodoroTimer } from '../pomodoro';
+import { PomodoroTimer } from './pomodoro';
 import { PomodoroFormService } from './pomodoro-form.service';
 
 @Component({

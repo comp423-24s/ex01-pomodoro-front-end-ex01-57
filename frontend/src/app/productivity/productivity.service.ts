@@ -20,6 +20,7 @@ export class ProductivityService {
   /** Internal construction to create an observable `timers$` that stores the last retreived
    *  list of timers from the backend. Every time we call `getTimers()`, we push the resulting
    *  timer list from the .get() API call to the `timers` ReplaySubject. The ReplaySubject stores
+   *
    * the last retreived list of timers, and `timers$` exposes this list as an observable.
    *
    * This construction is very useful because it allows us to have an observable we can update that
@@ -48,15 +49,13 @@ export class ProductivityService {
     // - Finally, update the internal timers$ observable by calling `this.timers.next(...)`.
     // - Return the result.
     return this.http
-      .get<TimerResponse[]>('${this.api/productivity/}')
-      .pipe(
-        this.mapTimerResponseListToDataList,
-        map((timerDataList: TimerData[]) => {
+      .get<TimerResponse[]>('/api/productivity')
+      .pipe(this.mapTimerResponseListToDataList)
+      .subscribe({
+        next: (timerDataList: TimerData[]) => {
           this.timers.next(timerDataList);
-          return timerDataList;
-        })
-      )
-      .subscribe();
+        }
+      });
   }
 
   /** Returns a single timer from the API as an observable.  */

@@ -11,6 +11,7 @@ import { ProductivityService } from '../productivity.service';
 import { TimerData } from '../timerdata';
 import { Router } from '@angular/router';
 import { PomodoroTimerState } from 'src/app/pomodoro';
+import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'timer-widget',
@@ -40,5 +41,12 @@ export class TimerWidget {
     // - Delete the timer. Upon completion of the delete, re-retrieve all timers
     //   using the productivityService's `.getTimers()` method so that the list
     //   of timers is updated.
+    if (this.timerData.id) {
+      this.productivityService.deleteTimer(this.timerData.id).subscribe({
+        next: () => {
+          this.productivityService.getTimers();
+        }
+      });
+    }
   }
 }
