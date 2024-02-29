@@ -48,7 +48,7 @@ export class ProductivityService {
     // - Finally, update the internal timers$ observable by calling `this.timers.next(...)`.
     // - Return the result.
     return this.http
-      .get<TimerResponse[]>('${this.api/productivity/}')
+      .get<TimerResponse[]>('api/productivity')
       .pipe(
         this.mapTimerResponseListToDataList,
         map((timerDataList: TimerData[]) => {
@@ -67,7 +67,7 @@ export class ProductivityService {
     //    pass the resulting list through the `mapTimerResponseToData` function.
     // - Return the result.
     return this.http
-      .get<TimerResponse>('${this.api/productivity/${id}}')
+      .get<TimerResponse>('/api/productivity/' + id)
       .pipe(this.mapTimerResponseToData);
   }
 
@@ -79,7 +79,7 @@ export class ProductivityService {
     //    pass the resulting list through the `mapTimerResponseToData` function.
     // - Return the result.
     return this.http
-      .post<TimerResponse>('${this.api/productivity/', request)
+      .post<TimerResponse>('/api/productivity/', request)
       .pipe(this.mapTimerResponseToData);
   }
 
@@ -94,7 +94,7 @@ export class ProductivityService {
     // Delete the line below once you complete your solution -
     // This is a placeholder to prevent Angular from failing to build.
     return this.http
-      .put<TimerResponse>('${this.api/productivity/', request)
+      .put<TimerResponse>('/api/productivity', request)
       .pipe(this.mapTimerResponseToData);
   }
 
@@ -105,7 +105,7 @@ export class ProductivityService {
     // - Return the result.
     // Delete the line below once you complete your solution -
     // This is a placeholder to prevent Angular from failing to build.
-    return this.http.delete('${this.api/productivity/${id}}');
+    return this.http.delete('/api/productivity/' + id);
   }
 
   /********* PROVIDED FUNCTIONS: Do not modify. *********/
