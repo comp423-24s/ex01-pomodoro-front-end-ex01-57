@@ -40,5 +40,7 @@ export class TimerWidget {
     // - Delete the timer. Upon completion of the delete, re-retrieve all timers
     //   using the productivityService's `.getTimers()` method so that the list
     //   of timers is updated.
+    this.productivityService.deleteTimer(this.timerData.id);
+    this.productivityService.getTimers();
   }
 }

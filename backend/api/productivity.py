@@ -2,6 +2,7 @@
 
 Productivity routes are used to create, retrieve, and update Pomodoro timers."""
 
+import logging
 from fastapi import APIRouter, Depends
 from typing import List
 from ..models.pomodorotimer import PomodoroTimer
@@ -32,7 +33,7 @@ class PomodoroBase(BaseModel):
 # GET /api/productivity
 # Gets all pomodoro timers.
 # Expected return type: list[PomodoroTimer]
-@api.get("/api/productivity/")
+@api.get("")
 async def gettimers(
     productivity_service: ProductivityService = Depends(),
 ) -> list[PomodoroTimer]:
@@ -44,7 +45,7 @@ async def gettimers(
 # GET /api/productivity/{id}
 # Get a pomodoro timer by its ID.
 # Expected return type: PomodoroTimer
-@api.get("/api/productivity/{id}")
+@api.get("/{id}")
 async def gettimer(
     id: int, productivity_service: ProductivityService = Depends()
 ) -> PomodoroTimer:
@@ -57,7 +58,7 @@ async def gettimer(
 # Creates a new pomodoro timer.
 # Note: This API will take in a request body. What type should this be?
 # Expected return type: PomodoroTimer
-@api.post("/api/productivity/")
+@api.post("/")
 async def createtimer(
     pomodoro_data: PomodoroBase, productivity_service: ProductivityService = Depends()
 ) -> PomodoroTimer:
@@ -78,7 +79,7 @@ async def createtimer(
 # Updates a pomodoro timer.
 # Note: This API will take in a request body. What type should this be?
 # Expected return type: PomodoroTimer
-@api.put("/api/productivity")
+@api.put("")
 async def updatetimer(
     pomodoro_base: PomodoroBase, productivity_service: ProductivityService = Depends()
 ) -> PomodoroTimer:
@@ -100,10 +101,9 @@ async def updatetimer(
 # DELETE /api/productivity/{id}
 # Deletes a pomodoro timer.
 # Expected return type: PomodoroTimer
-@api.delete("/api/productivity/{id}")
+@api.delete("/{id}")
 async def deletetimer(
     id: int,
-    pomodoro_base: PomodoroBase,
     productivity_service: ProductivityService = Depends(),
 ) -> PomodoroTimer:
     deleted = productivity_service.get_timer(id)
