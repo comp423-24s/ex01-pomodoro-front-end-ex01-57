@@ -74,10 +74,24 @@ export class TimerEditorComponent {
   public onSubmitForm() {
     // First, ensure that the form is valid (all validators pass). Otherwise, display a snackbar error.
     if (this.timerForm.valid) {
+      let timer: TimerResponse = {
+        id: this.id,
+        // @ts-ignore: Object is possibly 'null'.
+        name: this.timerForm.get('name').value!,
+        // @ts-ignore: Object is possibly 'null'.
+        description: this.timerForm.get('description').value!,
+        // @ts-ignore: Object is possibly 'null'.
+        timer_length: this.timerForm.get('timerLength').value!,
+        // @ts-ignore: Object is possibly 'null'.
+        break_length: this.timerForm.get('breakLength').value!
+      };
+      Object.assign(timer, this.timerForm.value);
       // If the timer is new, create it.
       if (this.isNew) {
+        this.productivityService.createTimer(timer);
         // TODO: Create a timer.
       } else {
+        this.productivityService.editTimer(timer);
         // TODO: Edit the existing timer.
       }
     } else {

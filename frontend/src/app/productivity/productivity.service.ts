@@ -12,6 +12,7 @@ import { TimerData, TimerResponse } from './timerdata';
 import { PomodoroTimer } from '../pomodoro';
 import { Observable, OperatorFunction, ReplaySubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { FOCUS_MONITOR_DEFAULT_OPTIONS } from '@angular/cdk/a11y';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class ProductivityService {
    * This construction is abstracted out in the CSXL Codebase as `RxObject<T>`, an abstract class located
    * in `src/app/rx-object.ts`.
    */
+  private url = '/api/productivity';
   private timers: ReplaySubject<TimerData[]> = new ReplaySubject(1);
   timers$: Observable<TimerData[]> = this.timers.asObservable();
 
@@ -48,15 +50,13 @@ export class ProductivityService {
     // - Finally, update the internal timers$ observable by calling `this.timers.next(...)`.
     // - Return the result.
     return this.http
-      .get<TimerResponse[]>('${this.api/productivity/}')
-      .pipe(
-        this.mapTimerResponseListToDataList,
-        map((timerDataList: TimerData[]) => {
-          this.timers.next(timerDataList);
-          return timerDataList;
-        })
-      )
-      .subscribe();
+      .get<TimerResponse[]>(`${this.url}`)
+      .subscribe((timerResponses: TimerResponse[]) => {
+        const timerDataList: TimerData[] = timerResponses.map((response) =>
+          this.timerResponseToData(response)
+        );
+        this.timers.next(timerDataList);
+      });
   }
 
   /** Returns a single timer from the API as an observable.  */
@@ -67,7 +67,7 @@ export class ProductivityService {
     //    pass the resulting list through the `mapTimerResponseToData` function.
     // - Return the result.
     return this.http
-      .get<TimerResponse>('${this.api/productivity/${id}}')
+      .get<TimerResponse>(`${this.url}/${id}`)
       .pipe(this.mapTimerResponseToData);
   }
 
@@ -79,7 +79,7 @@ export class ProductivityService {
     //    pass the resulting list through the `mapTimerResponseToData` function.
     // - Return the result.
     return this.http
-      .post<TimerResponse>('${this.api/productivity/', request)
+      .post<TimerResponse>(`${this.url}/`, request)
       .pipe(this.mapTimerResponseToData);
   }
 
@@ -94,7 +94,7 @@ export class ProductivityService {
     // Delete the line below once you complete your solution -
     // This is a placeholder to prevent Angular from failing to build.
     return this.http
-      .put<TimerResponse>('${this.api/productivity/', request)
+      .put<TimerResponse>(`${this.url}`, request)
       .pipe(this.mapTimerResponseToData);
   }
 
@@ -105,7 +105,7 @@ export class ProductivityService {
     // - Return the result.
     // Delete the line below once you complete your solution -
     // This is a placeholder to prevent Angular from failing to build.
-    return this.http.delete('${this.api/productivity/${id}}');
+    return this.http.delete(`${this.url}/${id}`);
   }
 
   /********* PROVIDED FUNCTIONS: Do not modify. *********/
