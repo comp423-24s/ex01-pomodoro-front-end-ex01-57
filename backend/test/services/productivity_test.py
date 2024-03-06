@@ -56,7 +56,6 @@ def test_get_timer_none_exists(productivity_service: ProductivityService):
         productivity_service.get_timer(1)
 
 
-# TODO: Implement two tests for updating a timer.
 def test_update_timer_none_exists(productivity_service: ProductivityService):
     with pytest.raises(Exception):
         productivity_service.update_timer(1)
